@@ -40,10 +40,10 @@ formulae = [
 ]
 
 formulae.each do |formula|
-  if system "brew list #{formula.split.first}"
+  if system "brew list #{formula.split.first} 2>&1"
     puts "#{formula.split.first} is already installed — skipped.".yellow
   else
-    %x( brew install #{formula} )
+    %x( brew install "#{formula}" )
   end
 end
 
@@ -53,9 +53,7 @@ puts "Setting up fzf...".green
 
 # Neovim Python install
 puts "Setting up Python with Vim...".green
-%x( pip2 install --user neovim )
 %x( pip3 install --user neovim )
-
 
 # Zsh installation
 puts "Setting up zsh...".green

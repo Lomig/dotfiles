@@ -25,17 +25,20 @@ FileUtils.mkdir_p "#{user_dir}/.config"
 
 Dir.foreach("#{dotfiles}/config") do |item|
   next if item == "." || item == ".."
-  links[".config/#{item}"] = ".dotfiles/config/#{item}"
+  links[".config/#{item}"] = "#{dotfiles}/config/#{item}"
 end
 
 ## Vim / Neovim Symlinks
-links[".vim"] = ".config/nvim"
-links[".vimrc"] = ".config/nvim/init.vim"
+links[".vim"] = "#{user_dir}/.config/nvim"
+links[".vimrc"] = "#{user_dir}/.config/nvim/init.vim"
 
 links.each do |key, value|
-  next if File.exist?("#{user_dir}/#{key}")
+  if File.exist?("#{user_dir}/#{key}")
+    puts "#{user_dir}/#{key} already exists. Skipped.".yellow
+    next
+  end
 
   puts "Creating symlink for #{key}...".magenta
-  %x( ln -s #{user_dir}/#{key} #{value} )
+  %x( ln -s #{value}  #{user_dir}/#{key} )
 end
 

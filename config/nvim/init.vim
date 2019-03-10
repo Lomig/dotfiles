@@ -7,7 +7,7 @@ call plug#begin('~/.config/nvim/plugged')
 
 " General {{{
     " Abbreviations
-    abbr wotlk "Wrath of the Lich King"
+    abbr wotlk Wrath of the Lich King
 
     set autoread " detect when a file is changed
 

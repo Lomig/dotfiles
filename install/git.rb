@@ -29,7 +29,7 @@ print "Github Account [#{github_account}]: ".blue
 tmp = gets.chomp
 git_name = tmp unless tmp.empty?
 
-if %x( uname ) == "Darwin"
+if %x( uname ).chomp == "Darwin"
   %x( git config --global credential.helper "osxkeychain" )
 else
   %x( git config --global credential.helper "store" )

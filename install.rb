@@ -15,7 +15,6 @@ puts "Installing dotfiles...".green
 # Git Submodules (if any)
 puts "Initializing Git Submodules..."
 %x( git submodule update --init --recursive )
-
 # Symlinks creation
 eval File.read("./install/symlinks.rb")
 
@@ -23,7 +22,7 @@ eval File.read("./install/symlinks.rb")
 eval File.read("./install/git.rb")
 
 # MacOS specific install
-if %x( uname ) == "Darwin"
+if %x( uname ).chomp == "Darwin"
   puts "\nMacOS detected. Specific install...".blue
   eval File.read("./install/brew.rb")
   eval File.read("./install/osx.rb")
