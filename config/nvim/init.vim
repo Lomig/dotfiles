@@ -48,6 +48,7 @@ call plug#begin('~/.config/nvim/plugged')
 
 " Appearance {{{
     set number " show line numbers
+    set relativenumber " show relative line numbers
     set wrap " turn on line wrapping
     set wrapmargin=8 " wrap lines when coming within n characters from side
     set linebreak " set soft wrapping
@@ -506,8 +507,11 @@ call plug#begin('~/.config/nvim/plugged')
         nmap <silent> <leader>s :GFiles?<cr>
 
         nmap <silent> <leader>r :Buffers<cr>
-        nmap <silent> <leader>e :FZF<cr>
-        nmap <leader><tab> <plug>(fzf-maps-n)
+
+        nmap <silent> <leader>: :Commands<cr>
+        
+        nmap <silent> <leader>h :History<cr>
+
         xmap <leader><tab> <plug>(fzf-maps-x)
         omap <leader><tab> <plug>(fzf-maps-o)
 
