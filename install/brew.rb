@@ -22,7 +22,7 @@ formulae = [
   "diff-so-fancy",
   "fzf",
   "git",
-  "grep --with-default-names",
+  "grep",
   "mas",
   "neovim",
   "node",
@@ -46,6 +46,11 @@ formulae.each do |formula|
     %x( brew install "#{formula}" )
   end
 end
+
+# Installing fonts
+puts "Installing fonts...".green
+%x( brew tap caskroom/fonts )
+%x( brew cask install font-hack-nerd-font )
 
 # Setup fzf after install
 puts "Setting up fzf...".green

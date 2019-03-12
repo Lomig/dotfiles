@@ -39,6 +39,7 @@ export EDITOR='nvim'
 export GIT_EDITOR='nvim'
 
 export PATH=/usr/local/bin:$PATH
+export PATH=/usr/local/opt/grep/libexec/gnubin:$PATH
 
 # add /usr/local/sbin
 if [[ -d /usr/local/sbin ]]; then
@@ -116,3 +117,6 @@ export LESS_TERMCAP_mh=$(tput dim)
 # https://github.com/koalaman/shellcheck/wiki
 #
 # export SHELLCHECK_OPTS=""
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
