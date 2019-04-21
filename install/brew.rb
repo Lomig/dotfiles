@@ -19,6 +19,7 @@ end
 
 formulae = [
   "bat",
+  "editorconfig",
   "diff-so-fancy",
   "fzf",
   "git",
@@ -37,6 +38,8 @@ formulae = [
   "ripgrep",
   "entr",
   "zplug",
+  "ocaml",
+  "opam",
 ]
 
 formulae.each do |formula|

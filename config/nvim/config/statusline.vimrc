@@ -64,7 +64,7 @@ let g:lightline = {
 
 " Function to change the name of the mode
 function! LightlineMode() abort
-    if len(expand('%')) <  winwidth(0) - 50
+    if len(expand('%:t')) <  winwidth(0) - 50
         return lightline#mode()
     else
         return get(g:lightline.mode_map, lightline#mode(), lightline#mode())
@@ -130,15 +130,7 @@ function! LightlineGitBranch()
     return "\uE725" . (exists('*fugitive#head') ? " " . fugitive#head() : '')
 endfunction
 
-" Functions to update the Status Line
-function! LightlineUpdate()
-    if g:goyo_entered == 0
-        " do not update lightline if in Goyo mode
-        call lightline#update()
-    endif
-endfunction
-
 augroup alestatus
-    autocmd User ALELintPost call LightlineUpdate()
+    autocmd User ALELintPost call lightline#update()
 augroup end
 
