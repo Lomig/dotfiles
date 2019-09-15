@@ -118,7 +118,6 @@ nmap <leader>ù <c-^>
 
 
 set pastetoggle=<F3>
-map <F8> :vertical wincmd f<CR>
 
 " Clear highlighted search
 noremap <space> :set hlsearch! hlsearch?<cr>

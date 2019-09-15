@@ -9,6 +9,17 @@ source $HOME/.config/nvim/config/mapping.vimrc
 source $HOME/.config/nvim/config/autogroups.vimrc
 source $HOME/.config/nvim/config/plugins.vimrc
 
+" Language-Specific Configuration {{{
+    " html / templates {{{
+    " }}}
+
+    " TypeScript {{{
+    " }}}
+
+    Plug 'sheerun/vim-polyglot'
+    let g:vim_json_syntax_conceal = 0
+" }}}
+
 call plug#end()
 
 " Colorscheme and final setup {{{
@@ -25,8 +36,8 @@ call plug#end()
     syntax on
     filetype plugin indent on
     " make the highlighting of tabs and other non-text less annoying
-    " highlight SpecialKey ctermfg=19 guifg=#333333
-    " highlight NonText ctermfg=19 guifg=#333333
+    highlight SpecialKey ctermfg=19 guifg=#333333
+    highlight NonText ctermfg=19 guifg=#333333
 
     " make comments and HTML attributes italic
     highlight Comment cterm=italic term=italic gui=italic
