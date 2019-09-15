@@ -120,3 +120,5 @@ export LESS_TERMCAP_mh=$(tput dim)
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
+# Ruby env
+export PATH="/usr/local/opt/ruby/bin:$PATH"
