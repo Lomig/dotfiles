@@ -29,9 +29,10 @@ if %x( uname ).chomp == "Darwin"
   puts "\nBack to standard install...".blue
 end
 
-# Vim directories
+# Vim directories and plugins
 puts "Creating  Vim directories..."
 FileUtils.mkdir_p File.expand_path('~/.vim-tmp')
+%x( nvim +'PlugInstall --sync' +qa )
 
 unless File.which("zsh")
   puts "Zsh not found. Please install and then re-run installation scripts.".red
