@@ -7,6 +7,7 @@ source $HOME/.config/nvim/config/general.vimrc
 source $HOME/.config/nvim/config/statusline.vimrc
 source $HOME/.config/nvim/config/mapping.vimrc
 source $HOME/.config/nvim/config/autogroups.vimrc
+source $HOME/.config/nvim/config/languages.vimrc
 source $HOME/.config/nvim/config/plugins.vimrc
 
 call plug#end()
