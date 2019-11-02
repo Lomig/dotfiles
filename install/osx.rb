@@ -43,3 +43,7 @@ puts "Killing affected applications..."
 ["Safari", "Finder", "Dock", "Mail", "SystemUIServer"].each do |app|
   %x( killall #{app} > /dev/null 2>&1 )
 end
+
+# Add xterminfo
+%x( tic ~/.dotfiles/resources/xterm-256color-italic.terminfo )
+%x( tic -x ~/.dotfiles/resources/tmux-256color-italic.terminfo )

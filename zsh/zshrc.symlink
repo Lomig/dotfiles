@@ -75,7 +75,6 @@ if [ -z ${RELOAD}  ]; then
     export ZPLUG_HOME=/usr/local/opt/zplug
     source $ZPLUG_HOME/init.zsh
     zplug 'zplug/zplug', hook-build:'zplug --self-manage'
-    zplug 'zsh-users/zsh-syntax-highlighting', defer:2
     zplug 'zsh-users/zsh-autosuggestions'
 
     if ! zplug check; then
@@ -116,6 +115,10 @@ export LESS_TERMCAP_mh=$(tput dim)
 # export SHELLCHECK_OPTS=""
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+# Syntax Highlighting
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/usr/local/share/zsh-syntax-highlighting/highlighters
 
 # Ruby env
 export GEM_HOME="${HOME}/.gem"

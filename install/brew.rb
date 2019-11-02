@@ -39,12 +39,14 @@ formulae = [
   "postgres",
   "postgis",
   "redis",
+  "zsh-syntax-highlighting",
 ]
 
 formulae.each do |formula|
-  if system "brew list #{formula.split.first} 2>&1"
+  if system "brew list #{formula.split.first} > /dev/null 2>&1"
     puts "#{formula.split.first} is already installed — skipped.".yellow
   else
+    puts "Installing #{formula.split.first}...".green
     %x( brew install "#{formula}" )
   end
 end
