@@ -39,6 +39,7 @@ formulae = [
   "postgres",
   "postgis",
   "redis",
+  "zsh-syntax-highlighting",
 ]
 
 formulae.each do |formula|
