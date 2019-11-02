@@ -38,6 +38,12 @@ for tool in s:opam_packages
 endfor
 " ## end of OPAM user-setup addition for vim / base ## keep this line
 
+" Merlin Deoplete integration
+if !exists('g:deoplete#omni_patterns')
+      let g:deoplete#omni#input_patterns = {}
+    endif
+    let g:deoplete#omni#input_patterns.ocaml = '[^. *\t]\.\w*|\s\w*|#'
+
 " ## added by OPAM user-setup for vim / ocp-indent ## 6db7403beacb05e3857f1f9797577afa ## you can edit, but keep this line
 if count(s:opam_available_tools,"ocp-indent") == 0
   source "/Users/lomig/.opam/default/share/ocp-indent/vim/indent/ocaml.vim"
