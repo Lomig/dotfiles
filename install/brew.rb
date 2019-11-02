@@ -58,6 +58,8 @@ puts "Installing asdf modules for Ruby...".green
 puts "Installing Ruby...".green
 %x( asdf install ruby 2.6.5 )
 %x( asdf global ruby 2.6.5 )
+%x( gem install rubocop )
+%x( gem install standardrb )
 
 puts "Installing asdf modules for Python...".green
 %x( asdf plugin-add python )
