@@ -64,7 +64,7 @@ puts "Installing Python...".green
 
 # Installing fonts
 puts "Installing fonts...".green
-%x( brew tap caskroom/fonts )
+%x( brew tap homebrew/cask-fonts )
 %x( brew cask install font-hack-nerd-font )
 
 # Setup fzf after install
