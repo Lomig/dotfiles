@@ -36,6 +36,9 @@ formulae = [
   "zplug",
   "opam",
   "ocaml",
+  "postgres",
+  "postgis",
+  "redis",
 ]
 
 formulae.each do |formula|
@@ -52,6 +55,12 @@ puts "Installing asdf modules for Ruby...".green
 puts "Installing Ruby...".green
 %x( asdf install ruby 2.6.5 )
 %x( asdf global ruby 2.6.5 )
+
+puts "Installing asdf modules for Python...".green
+%x( asdf plugin-add python )
+puts "Installing Python...".green
+%x( asdf install python 3.8.0 )
+%x( asdf global python 3.8.0 )
 
 # Installing fonts
 puts "Installing fonts...".green
