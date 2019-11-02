@@ -11,6 +11,9 @@ fi
 # use nvim, but don't make me think about it
 alias vim="nvim"
 
+# use bat, but don't make me think about it
+alias cat="bat"
+
 # Filesystem aliases
 alias ..='cd ..'
 alias ...='cd ../..'
