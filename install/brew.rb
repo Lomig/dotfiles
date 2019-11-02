@@ -40,6 +40,7 @@ formulae = [
   "postgis",
   "redis",
   "zsh-syntax-highlighting",
+  "reattach-to-user-namespace",
 ]
 
 formulae.each do |formula|
