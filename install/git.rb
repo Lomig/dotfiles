@@ -35,6 +35,21 @@ github_account = tmp unless tmp.empty?
 %x( git config --global github.user #{github_account} )
 %x( git config --global core.excludesfile ~/.gitignore_global )
 
+# Better git diff with better colors
+%x( git config --global core.pager "diff-so-fancy | less --tab=4 -RFX" )
+%x( git config --global color.diff-highlight.oldNormal "red bold" )
+%x( git config --global color.diff-highlight.oldHighlight "red bold 52" )
+%x( git config --global color.diff-highlight.newNormal "green bold" )
+%x( git config --global color.diff-highlight.newHighligh "green bold 52" )
+
+%x( git config --global color.diff.meta "11" )
+%x( git config --global color.diff.frag "magenta bold" )
+%x( git config --global color.diff.commit "yellow bold" )
+%x( git config --global color.diff.old "red bold" )
+%x( git config --global color.diff.new "green bold" )
+%x( git config --global color.diff.whitespace "red reverse" )
+
+
 if %x( uname ).chomp == "Darwin"
   %x( git config --global credential.helper "osxkeychain" )
 else

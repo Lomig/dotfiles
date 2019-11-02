@@ -27,7 +27,7 @@ set -g visual-activity off
 setw -g aggressive-resize on
 
 # make delay shorter
-# set -sg escape-time 0
+set -sg escape-time 0
 
 # tile all windows
 unbind =

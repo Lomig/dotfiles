@@ -9,17 +9,6 @@ source $HOME/.config/nvim/config/mapping.vimrc
 source $HOME/.config/nvim/config/autogroups.vimrc
 source $HOME/.config/nvim/config/plugins.vimrc
 
-" Language-Specific Configuration {{{
-    " html / templates {{{
-    " }}}
-
-    " TypeScript {{{
-    " }}}
-
-    Plug 'sheerun/vim-polyglot'
-    let g:vim_json_syntax_conceal = 0
-" }}}
-
 call plug#end()
 
 " Colorscheme and final setup {{{

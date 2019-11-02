@@ -77,9 +77,6 @@ if [ -z ${RELOAD}  ]; then
     zplug 'zplug/zplug', hook-build:'zplug --self-manage'
     zplug 'zsh-users/zsh-syntax-highlighting', defer:2
     zplug 'zsh-users/zsh-autosuggestions'
-    export NVM_AUTO_USE=true
-    # export NVM_NO_USE=true
-    zplug 'lukechilds/zsh-nvm'
 
     if ! zplug check; then
         printf "Install? [y/N]: "
@@ -121,4 +118,13 @@ export LESS_TERMCAP_mh=$(tput dim)
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 # Ruby env
-export PATH="/usr/local/opt/ruby/bin:$PATH"
+export GEM_HOME="${HOME}/.gem"
+export PATH="/usr/local/opt/ruby/bin:$GEM_HOME/bin:$PATH"
+
+# opam configuration
+test -r /Users/lomig/.opam/opam-init/init.zsh && . /Users/lomig/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+# asdf vm environment
+export ASDF_DIR=$(brew --prefix asdf)
+test -r "${ASDF_DIR}/asdf.sh" && source "${ASDF_DIR}/asdf.sh"
+test -r "${ASDF_DIR}/etc/bash_completion.d/asdf.bash" && source "${ASDF_DIR}/etc/bash_completion.d/asdf.bash"

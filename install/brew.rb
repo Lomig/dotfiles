@@ -18,6 +18,7 @@ unless File.which("brew")
 end
 
 formulae = [
+  "asdf",
   "bat",
   "editorconfig",
   "diff-so-fancy",
@@ -26,20 +27,15 @@ formulae = [
   "grep",
   "mas",
   "neovim",
-  "node",
-  "python",
-  "reattach-to-user-namespace",
   "tmux",
   "trash",
   "wget",
-  "vim",
   "z",
-  "zsh",
   "ripgrep",
   "entr",
   "zplug",
-  "ocaml",
   "opam",
+  "ocaml",
 ]
 
 formulae.each do |formula|
@@ -49,6 +45,13 @@ formulae.each do |formula|
     %x( brew install "#{formula}" )
   end
 end
+
+# Installing Dev Languages through asdf
+puts "Installing asdf modules for Ruby...".green
+%x( asdf plugin-add ruby )
+puts "Installing Ruby...".green
+%x( asdf install ruby 2.6.5 )
+%x( asdf global ruby 2.6.5 )
 
 # Installing fonts
 puts "Installing fonts...".green
@@ -63,6 +66,9 @@ puts "Setting up fzf...".green
 puts "Setting up Python with Vim...".green
 %x( pip3 install --user neovim )
 
+# zsh is the new default shell on MacOS 10.15+
+# Not useful anymore to configure it.
+=begin
 # Zsh installation
 puts "Setting up zsh...".green
 
@@ -78,3 +84,4 @@ unless ENV['SHELL'] == zsh_path
   %x( chsh -s "#{zsh_path}" )
   puts "Default shell changed to #{zsh_path}"
 end
+=end
