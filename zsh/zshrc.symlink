@@ -56,7 +56,6 @@ if [ -z ${RELOAD}  ]; then
     export ZPLUG_HOME=/usr/local/opt/zplug
     source $ZPLUG_HOME/init.zsh
     zplug 'zplug/zplug', hook-build:'zplug --self-manage'
-    zplug 'zsh-users/zsh-autosuggestions'
 
     if ! zplug check; then
         printf "Install? [y/N]: "
@@ -66,10 +65,6 @@ if [ -z ${RELOAD}  ]; then
     fi
 
     zplug load
-fi
-# alias git to hub
-if type hub > /dev/null 2>&1; then
-    eval "$(hub alias -s)"
 fi
 
 # move to next word with ctrl-F
@@ -100,6 +95,9 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 # Syntax Highlighting
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/usr/local/share/zsh-syntax-highlighting/highlighters
+
+# Zsh Autosuggestions
+source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # opam configuration
 test -r /Users/lomig/.opam/opam-init/init.zsh && . /Users/lomig/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true

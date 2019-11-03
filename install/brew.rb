@@ -40,6 +40,7 @@ formulae = [
   "postgis",
   "redis",
   "zsh-syntax-highlighting",
+  "zsh-autosuggestions",
   "reattach-to-user-namespace",
 ]
 
