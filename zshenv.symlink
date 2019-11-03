@@ -1,0 +1,22 @@
+export DOTFILES=$HOME/.dotfiles
+export ZSH=$DOTFILES/zsh
+export XDG_CONFIG_HOME=$HOME/.config
+export PATH=/usr/local/bin:$PATH
+export PATH=/usr/local/opt/grep/libexec/gnubin:$PATH
+
+# add /usr/local/sbin
+if [[ -d /usr/local/sbin ]]; then
+    export PATH=/usr/local/sbin:$PATH
+fi
+
+# adding path directory for custom scripts
+export PATH=$DOTFILES/bin:$PATH
+
+# check for custom bin directory and add to path
+if [[ -d ~/bin ]]; then
+    export PATH=~/bin:$PATH
+fi
+
+# Ruby env
+export GEM_HOME="${HOME}/.gem"
+export PATH="$GEM_HOME/bin:$PATH"

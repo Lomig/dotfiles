@@ -13,7 +13,7 @@ let g:ale_echo_msg_format = '%severity% %s% [%linter%% code%]'
 " let g:ale_completion_enabled = 1
 
 let g:ale_linters = {
-\   'ruby':['standardrb', 'rubocop'],
+\   'ruby':['rubocop'],
 \   'javascript': ['eslint'],
 \   'typescript': ['tsserver', 'tslint'],
 \   'typescript.tsx': ['tsserver', 'tslint'],
