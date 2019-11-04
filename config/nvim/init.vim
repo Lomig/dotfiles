@@ -38,4 +38,8 @@ call plug#end()
 
 " }}}
 
+if argc() == 2
+    silent vertical all
+endif
+
 " vim:set foldmethod=marker foldlevel=0
