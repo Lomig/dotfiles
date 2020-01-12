@@ -1,22 +1,22 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
-=begin
-
-Installation Scripts — Dotfiles and Dev Tools
--- Symlinks for dotfiles
-
-=end
+#
+# Installation Scripts — Dotfiles and Dev Tools
+# -- Symlinks for dotfiles
+#
 
 require 'fileutils'
 require 'colorize'
 
 user_dir = File.expand_path('~/')
 dotfiles = "#{user_dir}/.dotfiles"
-links = Hash.new
+links = {}
 
 # General Symlinks
+# Any file.symlink in any subdirectory is converted to a ~/.file
 Dir.glob("#{dotfiles}/**/*.symlink") do |item|
-	links[".#{File.basename(item, '.*')}"] = "#{item}"
+  links[".#{File.basename(item, '.*')}"] = item.to_s
 end
 
 # .config Symlinks
@@ -25,6 +25,7 @@ FileUtils.mkdir_p "#{user_dir}/.config"
 
 Dir.foreach("#{dotfiles}/config") do |item|
   next if item == "." || item == ".."
+
   links[".config/#{item}"] = "#{dotfiles}/config/#{item}"
 end
 
@@ -39,6 +40,5 @@ links.each do |key, value|
   end
 
   puts "Creating symlink for #{key}...".magenta
-  %x( ln -s #{value}  #{user_dir}/#{key} )
+  `ln -s #{value}  #{user_dir}/#{key}`
 end
-
