@@ -34,3 +34,17 @@ Plug 'sickill/vim-pasta'
 
 Plug 'sheerun/vim-polyglot'
 let g:vim_json_syntax_conceal = 0
+
+" Language Server Plugin
+" Plug 'autozimu/LanguageClient-neovim', {
+"     \ 'branch': 'next',
+"     \ 'do': 'bash install.sh',
+"     \ }
+" let g:LanguageClient_serverCommands = {
+"     \ 'ruby': ['tcp://localhost:7658'],
+"     \ }
+" autocmd FileType ruby setlocal omnifunc=LanguageClient#complete
+
+" Ruby and Rails
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-rake'

@@ -80,6 +80,7 @@ vnoremap ${ <esc>`>a}<esc>`<i{<esc>
 vnoremap $" <esc>`>a"<esc>`<i"<esc>
 vnoremap $' <esc>`>a'<esc>`<i'<esc>
 vnoremap $< <esc>`>a><esc>`<i<<esc>
+vnoremap $# <esc>`>a}<esc>`<i#{<esc>
 
 " Unescape HTML special characters back to UTF8 version
 nnoremap <silent> <leader>u :call functions#HtmlUnEscape()<cr>
@@ -138,3 +139,22 @@ nmap \t :set ts=4 sts=4 sw=4 noet<cr>
 nmap \s :set ts=4 sts=4 sw=4 et<cr>
 
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Ruby / Rails Mappings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! VimuxRake()
+    write
+    call VimuxRunCommand("clear")
+    VimuxClearRunnerHistory
+    VimuxZoomRunner
+    call VimuxRunCommand("rake")
+endfunction
+
+function! VimuxRubyRun()
+    write
+    call VimuxRunCommand("clear")
+    call VimuxRunCommand("ruby " . bufname("%"))
+endfunction
+
+map <leader>c :call VimuxRake()<CR>
+map <leader>cc :call VimuxRubyRun()<CR>
