@@ -34,6 +34,7 @@ for config ($ZSH/**/*completion.sh) source $config
 
 export EDITOR='nvim'
 export GIT_EDITOR='nvim'
+export BUNDLER_EDITOR="'/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl' -a"
 
 # add a config file for ripgrep
 export RIPGREP_CONFIG_PATH="$XDG_CONFIG_HOME/rgrc"
@@ -56,6 +57,7 @@ if [ -z ${RELOAD}  ]; then
     export ZPLUG_HOME=/usr/local/opt/zplug
     source $ZPLUG_HOME/init.zsh
     zplug 'zplug/zplug', hook-build:'zplug --self-manage'
+    zplug 'plugins/sublime', from:oh-my-zsh
 
     if ! zplug check; then
         printf "Install? [y/N]: "

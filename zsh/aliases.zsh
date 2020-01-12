@@ -70,3 +70,5 @@ for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
 done
 
 alias pcat='pygmentize -f terminal256 -O style=native -g'
+
+
