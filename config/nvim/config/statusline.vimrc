@@ -53,7 +53,7 @@ let g:lightline = {
  \     'NORMAL': 'N', 'INSERT': 'I', 'REPLACE': 'R', 'VISUAL': 'V', 'V-LINE': 'v', 'V-BLOCK': "\<C-v>",
  \     'COMMAND': 'C', 'SELECT': 's', 'S-LINE': 'S', 'S-BLOCK': "\<C-s>",  'TERMINAL': 'T'
  \   },
- \   'separator': { 'left': "\ue0c0 ", 'right': "\ue0c2 " },
+ \   'separator': { 'left': "\ue0c0 ", 'right': "\ue0c2 ▐" },
  \   'subseparator': { 'left': '', 'right': '' }
  \ }
 
