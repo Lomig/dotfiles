@@ -1,6 +1,3 @@
-# display how long all tasks over 10 seconds take
-export REPORTTIME=10
-
 [[ -e ~/.terminfo ]] && export TERMINFO_DIRS=~/.terminfo:/usr/share/terminfo
 
 # define the code directory
@@ -58,12 +55,10 @@ if [ -z ${RELOAD}  ]; then
     source $ZPLUG_HOME/init.zsh
     zplug 'zplug/zplug', hook-build:'zplug --self-manage'
     zplug 'plugins/sublime', from:oh-my-zsh
+    zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme
 
     if ! zplug check; then
-        printf "Install? [y/N]: "
-        if read -q; then
-            echo; zplug install
-        fi
+        zplug install
     fi
 
     zplug load
