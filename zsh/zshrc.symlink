@@ -103,3 +103,6 @@ test -r /Users/lomig/.opam/opam-init/init.zsh && . /Users/lomig/.opam/opam-init/
 export ASDF_DIR=$(brew --prefix asdf)
 test -r "${ASDF_DIR}/asdf.sh" && source "${ASDF_DIR}/asdf.sh"
 test -r "${ASDF_DIR}/etc/bash_completion.d/asdf.bash" && source "${ASDF_DIR}/etc/bash_completion.d/asdf.bash"
+
+# Homebrew API Token
+test -r "$ZSH/brew_token.zsh" && source "$ZSH/brew_token.zsh"
