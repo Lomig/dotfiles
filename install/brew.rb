@@ -21,6 +21,7 @@ formulae = [
   "asdf",
   "bat",
   "editorconfig",
+  "exa",
   "diff-so-fancy",
   "fzf",
   "git",
