@@ -146,7 +146,6 @@ function! VimuxRake()
     write
     call VimuxRunCommand("clear")
     VimuxClearRunnerHistory
-    VimuxZoomRunner
     call VimuxRunCommand("rake")
 endfunction
 
