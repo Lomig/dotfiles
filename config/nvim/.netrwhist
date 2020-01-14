@@ -1,5 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =3
-let g:netrw_dirhist_3='/Users/lomig/code/Lomig/fullstack-challenges/01-Ruby/04-Hash-Symbols/02-Modeling-with-Hash-part-II/lib'
-let g:netrw_dirhist_2='/Users/lomig/code/Lomig/fullstack-challenges/01-Ruby/02-Flow-Array/04-Black-Jack/lib'
-let g:netrw_dirhist_1='/Users/lomig/code/Lomig/fullstack-challenges/01-Ruby/01-Programming-basics/Optional-02-Ip-Address-Converter/lib'

@@ -7,3 +7,4 @@ config/nvim/autoload/plug.vim
 config/nvim/.netrwhist
 vim/vim.symlink/spell/
 vim/vim.symlink/plugged/
+zsh/brew_token.zsh
