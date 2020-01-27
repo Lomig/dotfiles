@@ -31,13 +31,9 @@ nnoremap 0 à
 " Remap impossible shortcuts:
 " Ctrl + ] --> Ctrl + $
 " jk and kj --> Escape
-" Use Ctrl + J/K to move into autocomplete frame
 nmap <C-]> <C-$>
 inoremap jk <esc>
 inoremap kj <esc>
-inoremap <expr> <C-j> pumvisible() ? "\<C-N>" : "\<C-j>"
-inoremap <expr> <C-k> pumvisible() ? "\<C-P>" : "\<C-k>"
-
 
 " . is on shift on Azerty keyboards
 " Remapping to ù
@@ -106,7 +102,6 @@ nnoremap <C-y> 5<C-y>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Set a map leader for more key combos
-" Using MacOS 'cmd' key
 let mapleader = ";"
 
 
@@ -131,8 +126,6 @@ nmap <leader><space><space> :%s/\n\{2,}/\r\r/g<cr>
 nmap <leader>sf :set invspell spelllang=fr<cr>
 nmap <leader>se :set invspell spelllang=en<cr>
 
-" Smart tab : Completion / Real tab regarding of the context
-inoremap <tab> <c-r>=functions#Smart_TabComplete()<CR>
 " Set tab to tabulations
 nmap \t :set ts=4 sts=4 sw=4 noet<cr>
 " Set tab to spaces

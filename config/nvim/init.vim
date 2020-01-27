@@ -1,7 +1,13 @@
 " .vimrc / init.vim
 " The following vim/neovim configuration works for both Vim and NeoVim
 
-source $HOME/.config/nvim/config/init.vimrc
+call functions#PlugLoad()
+call plug#begin('~/.config/nvim/plugged')
+
+" Colorschemes
+Plug 'chriskempson/base16-vim'
+Plug 'joshdick/onedark.vim'
+
 source $HOME/.config/nvim/config/abbreviations.vimrc
 source $HOME/.config/nvim/config/general.vimrc
 source $HOME/.config/nvim/config/statusline.vimrc
@@ -38,8 +44,6 @@ call plug#end()
 
 " }}}
 
-if argc() == 2
-    silent vertical all
-endif
+
 
 " vim:set foldmethod=marker foldlevel=0

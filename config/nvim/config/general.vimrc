@@ -60,6 +60,13 @@ set magic                       " Set magic on, for regex
 set number                      " Show line number on active line
 set relativenumber              " Show relative line numbers on other lines
 
+" Make the number not relative in INSERT mode or if the buffer has not the focus
+:augroup numbertoggle
+:  autocmd!
+:  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+:  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+:augroup END
+
 set wrap                        " Turn on line wrapping
 set wrapmargin=8                " Right margin before wrapping lines
 set linebreak                   " Don't wrap in the middle of a word
@@ -76,6 +83,9 @@ set showbreak=↪
 set ttyfast                     " Faster redrawing for modern consoles / tty
 
 set diffopt+=vertical           " Diff files with a vertical split
+if argc() == 2                  " Vertical split as default if opening two files
+    silent vertical all
+endif
 
 set laststatus=2                " Show the satus line all the time
 set showcmd                     " Show incomplete commands under status bar

@@ -2,6 +2,25 @@
 " Language-specific settings for Vim
 
 """"""""""""""""""""""""""""""""""""""""
+" All Languages
+""""""""""""""""""""""""""""""""""""""""
+
+Plug 'sheerun/vim-polyglot'
+let g:vim_json_syntax_conceal = 0
+
+
+""""""""""""""""""""""""""""""""""""""""
+" Ruby and Rails
+""""""""""""""""""""""""""""""""""""""""
+
+Plug 'vim-ruby/vim-ruby'
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-rake'
+Plug 'vim-utils/vim-ruby-fold'
+Plug 'vim-scripts/rainbow-end'
+
+
+""""""""""""""""""""""""""""""""""""""""
 " Ocaml
 """"""""""""""""""""""""""""""""""""""""
 
@@ -37,12 +56,6 @@ for tool in s:opam_packages
   endif
 endfor
 " ## end of OPAM user-setup addition for vim / base ## keep this line
-
-" Merlin Deoplete integration
-if !exists('g:deoplete#omni_patterns')
-      let g:deoplete#omni#input_patterns = {}
-    endif
-    let g:deoplete#omni#input_patterns.ocaml = '[^. *\t]\.\w*|\s\w*|#'
 
 " ## added by OPAM user-setup for vim / ocp-indent ## 6db7403beacb05e3857f1f9797577afa ## you can edit, but keep this line
 if count(s:opam_available_tools,"ocp-indent") == 0
