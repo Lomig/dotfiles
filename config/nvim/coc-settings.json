@@ -1,4 +1,7 @@
 {
+    "solargraph.commandPath": "/Users/lomig/.gem/bin/solargraph",
+    "solargraph.formatting": true,
+    "eslint.autoFixOnSave": true,
     "suggest.noselect": false,
     "codeLens.enable": true,
     "suggest.completionItemKindLabels": {

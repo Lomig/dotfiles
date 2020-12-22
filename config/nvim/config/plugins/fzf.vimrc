@@ -7,34 +7,32 @@
 " Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Plug '/usr/local/opt/fzf'
-Plug 'junegunn/fzf.vim'
+Plug 'yuki-ycino/fzf-preview.vim', { 'branch': 'release', 'do': ':UpdateRemotePlugins' }
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Variables
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:fzf_layout = { 'down': '~25%' }
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" <leader>t : search file in the current directory
+" <leader>p : search file in the current directory
 if isdirectory(".git")
-    " If in a git project, use :GFiles
-    nmap <silent> <leader>t :GitFiles --cached --others --exclude-standard<cr>
+    " If in a git project
+    nmap <silent> <leader>p :FzfPreviewGitFiles<cr>
 else
-    " Otherwise, use :FZF
-    nmap <silent> <leader>t :FZF<cr>
+    " Otherwise
+    nmap <silent> <leader>p :FzfPreviewProjectFiles<cr>
 endif
 
+" <leader>P : command palette
+nmap <silent> <leader>P :FzfPreviewCommandPalette<cr>
+
 " <leader>r : search file in open buffers
-nmap <silent> <leader>r :Buffers<cr>
-" <leader>: : search in commands
-nmap <silent> <leader>: :Commands<cr>
-" <leader>h : search in file history
-nmap <silent> <leader>h :History<cr>
+nmap <silent> <leader>r :FzfPreviewBuffers<cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

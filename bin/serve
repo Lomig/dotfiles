@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+
+current_window = `tmux display-message -p '#I'`.chomp
+
+# Stop redis if running
+`redis-cli shutdown`
+
+# Remove previous Server Window if existing
+`tmux select-window -t "Rails S" > /dev/null`
+`tmux kill-window -t "Rails S"` if $?.success?
+
+# Start Rails S, Redis, Webpack-dev-server
+`tmux new-window -n "Rails S" -c "#{ Dir.pwd }"`
+`tmux send-keys -t "Rails S" "rails s" C-m`
+`tmux split-window -t "Rails S" -h -p 25`
+`tmux send-keys -t "Rails S" "redis-server" C-m`
+`tmux split-window -t "Rails S" -v`
+`tmux send-keys -t "Rails S" "./bin/webpack-dev-server" C-m`
+
+# Go back to current window
+`tmux select-window -t :#{ current_window }`

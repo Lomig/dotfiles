@@ -18,5 +18,9 @@ if [[ -d ~/bin ]]; then
 fi
 
 # Ruby env
-export GEM_HOME="${HOME}/.gem"
-export PATH="$GEM_HOME/bin:$PATH"
+export GEM_HOME=$HOME/.gem
+export PATH=$GEM_HOME/bin:$PATH
+
+export LESSCHARSET=utf-8
+export LANG="fr_FR.UTF-8"
+

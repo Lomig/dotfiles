@@ -1,0 +1,17 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "colorize"
+
+def color(entry)
+    entry == "master" ? :light_red : :light_green
+end
+
+count = ARGV[0]&.to_i || 5
+puts "Last #{count} checked out branches:".colorize(:light_blue)
+
+history = `git reflog`.split("\n")
+                      .map { |entry| entry.split(" ") }
+                      .select { |entry| entry[2] == "checkout:" }
+                      .first(count)
+                      .each { |entry| puts "  - " + "#{ entry[7] }".colorize(color(entry[7])) }

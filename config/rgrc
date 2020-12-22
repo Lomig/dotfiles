@@ -5,13 +5,7 @@
 style:*.{css,sass,less,stylus}
 
 --type-add
-pug:*.{pug,jade}
-
---type-add
-tmpl:*.{html,hbs,pug}
-
---type-add
-dts:*.d.ts
+tmpl:*.{html,erb}
 
 --type-add
 spec:*.spec.{t,j}s
@@ -21,3 +15,7 @@ spec:*.spec.{t,j}s
 
 # follow symlinks
 --follow
+
+# ignore svg files
+--glob
+!*.svg

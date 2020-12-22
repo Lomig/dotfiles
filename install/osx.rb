@@ -22,7 +22,7 @@ puts "Réglages systèmes de MacOS X...".green
 `defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true`
 
 # Show the ~/Library folder in Finder
-# %x( chflags nohidden ~/Library )
+%x( chflags nohidden ~/Library )
 
 # Use current directory as default search scope in Finder
 `defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"`
@@ -55,6 +55,21 @@ puts "Réglages systèmes de MacOS X...".green
 
 # Don’t show recent applications in Dock
 `defaults write com.apple.dock show-recents -bool false`
+
+# Save to disk (not to iCloud) by default
+`defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false`
+
+# Increase sound quality for Bluetooth headphones/headsets
+`defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40`
+
+# Enable subpixel font rendering on non-Apple LCDs
+`defaults write NSGlobalDomain AppleFontSmoothing -int 2`
+
+# Enable HiDPI display modes (requires restart)
+`sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutionEnabled -bool true`
+
+# Don’t automatically rearrange Spaces based on most recent use
+`defaults write com.apple.dock mru-spaces -bool false`
 
 # Restart modified applications
 puts "Killing affected applications..."

@@ -5,6 +5,9 @@
 # Installation Scripts — Dotfiles and Dev Tools
 #
 
+`gem install colorize`
+`gem install ptools`
+
 require 'fileutils'
 require 'ptools'
 require 'colorize'

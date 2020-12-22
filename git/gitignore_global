@@ -1,7 +1,12 @@
-.DS_Store
+# Windows Specifics
 Thumbs.db
+
+# Temp files
 *~
 *.swp
+
+# Mac OS Specifics
+.DS_Store
 .AppleDouble
 .LSOverride
 Icon
@@ -13,10 +18,10 @@ Icon
 .Spotlight-V100
 .Trashes
 
-# project-specific vim configurations
+# Project-specific vim configurations
 .vimrc.local
 
-# typescript command garbage
+# Typescript command garbage
 tscommand*.txt
 
 # nvm - the Node Version Manager

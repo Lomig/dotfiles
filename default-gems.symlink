@@ -1,0 +1,11 @@
+bundler
+pry
+rails
+colorize
+htmlbeautifier
+rubocop
+standard
+solargraph
+solargraph-standard
+solargraph-rails
+pry-byebug

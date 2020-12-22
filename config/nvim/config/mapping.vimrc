@@ -2,6 +2,10 @@
 " Configuration for key mapping
 
 
+" Set a map leader for more key combos
+nnoremap <SPACE> <Nop>
+let mapleader = " "
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " French AZERTY Helpers
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -53,7 +57,7 @@ map <silent> <C-k> :call functions#WinMove('k')<cr>
 map <silent> <C-l> :call functions#WinMove('l')<cr>
 
 " Zoom the current buffer in a new tab
-nnoremap <silent> <leader>z :call functions#zoom()<cr>
+nnoremap <silent> <leader>= :call functions#zoom()<cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -68,15 +72,6 @@ inoremap Ï <Esc>:m .+1<cr>==gi
 inoremap È <Esc>:m .-2<cr>==gi
 vnoremap Ï :m '>+1<cr>gv=gv
 vnoremap È :m '<-2<cr>gv=gv
-
-" Visual Mode : Put the selection between brackets / parenthesis / ...
-vnoremap $( <esc>`>a)<esc>`<i(<esc>
-vnoremap $[ <esc>`>a]<esc>`<i[<esc>
-vnoremap ${ <esc>`>a}<esc>`<i{<esc>
-vnoremap $" <esc>`>a"<esc>`<i"<esc>
-vnoremap $' <esc>`>a'<esc>`<i'<esc>
-vnoremap $< <esc>`>a><esc>`<i<<esc>
-vnoremap $# <esc>`>a}<esc>`<i#{<esc>
 
 " Unescape HTML special characters back to UTF8 version
 nnoremap <silent> <leader>u :call functions#HtmlUnEscape()<cr>
@@ -101,10 +96,6 @@ nnoremap <C-y> 5<C-y>
 " Misc Mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Set a map leader for more key combos
-let mapleader = ";"
-
-
 "Toggle highlighting the current entire line
 nnoremap <leader>i :set cursorline!<cr>
 " Toggle invisible characters
@@ -116,11 +107,11 @@ nmap <leader>ù <c-^>
 set pastetoggle=<F3>
 
 " Clear highlighted search
-noremap <space> :set hlsearch! hlsearch?<cr>
+noremap <leader><space> :set hlsearch! hlsearch?<cr>
 
 " Remove extra whitespace
-nmap <leader><space> :%s/\s\+$<cr>
-nmap <leader><space><space> :%s/\n\{2,}/\r\r/g<cr>
+nmap <leader><space><space> :%s/\s\+$<cr>
+nmap <leader><space><space><space> :%s/\n\{2,}/\r\r/g<cr>
 
 " Activate spell-checking alternatives
 nmap <leader>sf :set invspell spelllang=fr<cr>

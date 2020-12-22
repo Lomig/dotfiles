@@ -1,3 +1,25 @@
-#!/usr/bin/env bash
+#!/usr/bin/env ruby
+require 'colorize'
 
-pmset -g batt | egrep "([0-9]+\%).*" -o --colour=auto | cut -f1 -d';'
+def tmux_color(percent)
+  return "#[fg=colour196,bg=colour242]" if percent <= 20
+  return "#[fg=colour208,bg=colour242]" if percent <= 40
+  "#[fg=colour35,bg=colour242]"
+end
+
+battery_status = `pmset -g batt`
+
+matched_data = battery_status.match(/'(?<power>.+) Power'.*\s(?<percent>\d{1,2})%/m)
+
+power_source = matched_data[:power].to_sym
+percentage = matched_data[:percent].to_i
+
+battery_icons = {
+  AC:      ["", "", "", "", "", "", "", "", "", ""],
+  Battery: ["", "", "", "", "", "", "", "", "", ""]
+}
+
+color = tmux_color(percentage)
+icon = battery_icons[power_source][(percentage / 10).ceil]
+
+puts "#{ color }#{ icon }  #[fg=colour250,bg=colour242]— #{ color }#{ percentage }%"

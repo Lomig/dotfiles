@@ -120,9 +120,9 @@ match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 " Tab Control
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set smarttab			" Tab respects 'tabstop', 'shiftwidth' and 'softtabstop'
-set tabstop=4			" The visible width of tabs
-set softtabstop=4		" Edit as if the tabs are 4 characters wide
-set shiftwidth=4		" Number of spaces to use for indent and unindent
+set tabstop=2			" The visible width of tabs
+set softtabstop=2		" Edit as if the tabs are 4 characters wide
+set shiftwidth=2		" Number of spaces to use for indent and unindent
 set shiftround			" Round indent to a multiple of 'shiftwidth'
 set noexpandtab			" Insert tabs rather than spaces for <Tab>
 

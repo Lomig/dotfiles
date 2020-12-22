@@ -28,7 +28,7 @@ endfunction
 
 let g:coc_snippet_next = '<tab>'
 
-let g:coc_global_extensions = ['coc-json', 'coc-snippets', 'coc-solargraph', 'coc-highlight', 'coc-emmet', 'coc-yaml', 'coc-css', 'coc-html', 'coc-tsserver']
+let g:coc_global_extensions = ['coc-json', 'coc-snippets', 'coc-solargraph', 'coc-highlight', 'coc-emmet', 'coc-yaml', 'coc-css', 'coc-html', 'coc-bootstrap-classname', 'coc-highlight', 'coc-eslint', 'coc-json', 'coc-tailwindcss', 'coc-tsserver']
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

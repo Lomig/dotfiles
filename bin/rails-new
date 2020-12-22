@@ -1,0 +1,39 @@
+#!/usr/bin/env ruby
+
+require 'colorize'
+
+#--------------------------------
+options = {
+  database:       :postgresql,
+  skip_sprockets: true,
+  skip_test:      false,
+  webpack:        :stimulus,
+}
+
+template = "~/.dotfiles/templates/rails/standard.rb"
+#--------------------------------
+
+unless ARGV[0]
+  puts "Error: A name for your new app is required".colorize(:light_red)
+  exit 1
+end
+
+def dasherize(string)
+  string.to_s.gsub("_", "-")
+end
+
+def option_to_arg(option)
+  (key, value) = option
+  return "" unless value
+  return "--#{ dasherize(key) }" if value.class == TrueClass
+
+  "--#{ dasherize(key) }=#{ value }"
+end
+
+command_args = options.inject("") do |args, option|
+  next args unless option.last
+  "#{ args } #{ option_to_arg(option) }"
+end
+
+
+exec "rails new #{ ARGV[0] }#{ command_args } -m #{ template }"

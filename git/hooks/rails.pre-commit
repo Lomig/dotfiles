@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+return unless File.file?("Gemfile")
+return if File.readlines("Gemfile").grep(/^\s*gem ["']annotate/).empty?
+
+require 'Rake'
+load("Rakefile")
+
+Rake::Task['annotate_models'].invoke
+Rake::Task['annotate_routes'].invoke

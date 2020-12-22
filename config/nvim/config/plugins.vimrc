@@ -25,3 +25,9 @@ Plug 'tpope/vim-sleuth'
 
 " Context-aware pasting
 Plug 'sickill/vim-pasta'
+
+" Vim Rainbow
+Plug 'luochen1990/rainbow'
+let g:rainbow_active = 1
+
+Plug 'Lomig/rainbow_end.nvim'

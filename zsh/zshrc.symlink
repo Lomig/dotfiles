@@ -1,5 +1,9 @@
 [[ -e ~/.terminfo ]] && export TERMINFO_DIRS=~/.terminfo:/usr/share/terminfo
 
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # define the code directory
 # This is where my code exists and where I want the `c` autocomplete to work from exclusively
 if [[ -d ~/Dev ]]; then
@@ -7,6 +11,7 @@ if [[ -d ~/Dev ]]; then
 fi
 
 # source all .zsh files inside of the zsh/ directory
+source "$HOME/.zshenv"
 source "$ZSH/utils.zsh"
 source "$ZSH/prompt.zsh"
 source "$ZSH/aliases.zsh"
@@ -24,6 +29,9 @@ fi
 
 
 # initialize autocomplete
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+fi
 autoload -U compinit add-zsh-hook
 compinit
 
@@ -49,13 +57,15 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # Base16 shell setup
 BASE16_SHELL=$HOME/.config/base16-shell/
 [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+eval "base16_onedark"
 
 if [ -z ${RELOAD}  ]; then
     export ZPLUG_HOME=/usr/local/opt/zplug
     source $ZPLUG_HOME/init.zsh
     zplug 'zplug/zplug', hook-build:'zplug --self-manage'
     zplug 'plugins/sublime', from:oh-my-zsh
-    zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme
+    # zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme
+    zplug romkatv/powerlevel10k, as:theme, depth:1
 
     if ! zplug check; then
         zplug install
@@ -87,8 +97,6 @@ export LESS_TERMCAP_mh=$(tput dim)
 #
 # export SHELLCHECK_OPTS=""
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
 # Syntax Highlighting
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/usr/local/share/zsh-syntax-highlighting/highlighters
@@ -102,7 +110,8 @@ test -r /Users/lomig/.opam/opam-init/init.zsh && . /Users/lomig/.opam/opam-init/
 # asdf vm environment
 export ASDF_DIR=$(brew --prefix asdf)
 test -r "${ASDF_DIR}/asdf.sh" && source "${ASDF_DIR}/asdf.sh"
-test -r "${ASDF_DIR}/etc/bash_completion.d/asdf.bash" && source "${ASDF_DIR}/etc/bash_completion.d/asdf.bash"
 
 # Homebrew API Token
 test -r "$ZSH/brew_token.zsh" && source "$ZSH/brew_token.zsh"
+
+ZLE_RPROMPT_INDENT=0
