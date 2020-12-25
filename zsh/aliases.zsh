@@ -74,3 +74,6 @@ alias pcat='pygmentize -f terminal256 -O style=native -g'
 alias gco="git co"
 alias gst="git st"
 alias pr="gh pr create"
+
+# PG Sync
+alias sync="pgsync all --debug"
