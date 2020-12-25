@@ -16,6 +16,11 @@ unless File.which('brew')
   eval open('https://raw.githubusercontent.com/Homebrew/install/master/install', &:read)
 end
 
+taps = %w[
+  heroku/brew
+]
+
+
 formulae = %w[
   asdf
   bat
@@ -41,25 +46,55 @@ formulae = %w[
   zsh-syntax-highlighting
   zsh-autosuggestions
   reattach-to-user-namespace
+  slack
+  firefox
+  mas
+  zoom
+  telegram
+  whatsapp
+  fuck
+  tldr
+  heroku
 ]
 
 cask_formulae = %w[
   mark-text
   keepassxc
+  alacritty
+  microsoft-edge
+  toggl-track
+  1password
+  hey
 ]
 
+mas_formulae = {
+  magnet: 441258766,
+  xcode: 497799835,
+  color_slurp: 1287239339,
+}
+
+taps.each do |source|
+  puts "Adding #{source} source...".green
+  `brew tap #{source}`
+end
+
 formulae.each do |formula|
-  if system "brew list #{formula.split.first} > /dev/null 2>&1"
-    puts "#{formula.split.first} is already installed — skipped.".yellow
+  if system "brew list #{formula} > /dev/null 2>&1"
+    puts "#{formula} is already installed — skipped.".yellow
   else
-    puts "Installing #{formula.split.first}...".green
+    puts "Installing #{formula}...".green
     `brew install "#{formula}"`
   end
 end
 
 cask_formulae.each do |formula|
-  puts "Installing #{formula.split.first}...".green
+  puts "Installing #{formula}...".green
   `brew install "#{formula}"`
+end
+
+mas_formulae.each do |key, formula|
+  puts "Installing #{key}...".green
+  `mas install #{formula}`
 end
 
 # Installing Dev Languages through asdf
