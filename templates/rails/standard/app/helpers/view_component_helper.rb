@@ -7,7 +7,7 @@ module ViewComponentHelper
   def component(name, context: nil, **args, &block)
     return component_class_from_name(name).new(args).render_in(context, &block) if context
 
-    render_component(component_class_from_name(name).new(args), &block)
+    render(component_class_from_name(name).new(args), &block)
   end
 
   private

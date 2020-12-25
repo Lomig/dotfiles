@@ -1,242 +1,168 @@
 require "colorize"
+require "~/.dotfiles/templates/rails/standard_values"
+
 run "if uname | grep -q 'Darwin'; then pgrep spring | xargs kill -9; fi"
+
+def replace_file_with_values(path)
+  remove_file(path)
+  file(path, IO.read(File.expand_path("~/.dotfiles/templates/rails/standard/#{path}")))
+end
+
+########################################
+# BEFORE BUNDLE
+########################################
 
 # GEMFILE
 ########################################
 puts "Adding gems to default Gemfile...".colorize(:light_green)
+
 gsub_file('Gemfile', /# gem 'redis'/, "gem 'redis'")
-gsub_file('Gemfile', /^.*'byebug'.*$/, "")
+gsub_file('Gemfile', /^.*'byebug'.*\n/, "")
 
-inject_into_file 'Gemfile', before: 'group :development, :test do' do
-  <<~RUBY
-
-    # Authentication
-    gem 'devise'
-    gem 'devise-i18n'
-
-    # Authorization
-    gem 'pundit'
-
-    # Frontend
-    gem 'view_component', require: 'view_component/engine'
-    gem 'cloudinary'
-
-  RUBY
-end
-
-inject_into_file 'Gemfile', after: "group :development, :test do\n" do
-  <<-RUBY
-  # Call 'binding.pry' anywhere in the code to stop execution and get a debugger console
-  gem 'pry-byebug'
-  # Pry for 'rails console'
-  gem 'pry-rails'
-
-  # Linting
-  gem 'rubocop'
-  gem 'rubocop-performance'
-  gem 'rubocop-rails'
-  gem 'standard'
-
-  gem 'dotenv-rails'
-  RUBY
-end
-
-inject_into_file 'Gemfile', after: "group :development do\n" do
-  <<-RUBY
-  gem 'annotate'
-  gem 'bullet'
-  RUBY
-end
-
-# Assets from Sprockets to Webpacker
-########################################
-puts "Removing Assets and Vendor folders...".colorize(:light_green)
-run 'rm -rf app/assets'
-run 'rm -rf vendor'
+inject_into_file('Gemfile', Values::PROD_GEMS,     before: 'group :development, :test do')
+inject_into_file('Gemfile', Values::DEV_TEST_GEMS, after: "group :development, :test do\n")
+inject_into_file('Gemfile', Values::DEV_GEMS,      after: "group :development do\n")
 
 # Layout
 ########################################
-puts "Changing layout to use webpacker instead of sprockets...".colorize(:light_green)
-before = "<%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>"
-after  = "<%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload', defer: true %>"
+puts "Changing application layout...".colorize(:light_green)
+
+before = /<%= javascript.*/
+after  = "<%= javascript_pack_tag 'application', defer: true %>"
 gsub_file('app/views/layouts/application.html.erb', before, after)
 
-before = "<%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>"
+before = /<%= stylesheet.*/
 after  = "<%= stylesheet_pack_tag 'stylesheets', media: 'all' %>"
 gsub_file('app/views/layouts/application.html.erb', before, after)
 
+before = /^\s*<body>.*<\/body>/m
+after = Values::LAYOUT
+gsub_file('app/views/layouts/application.html.erb', before, after)
 
 ########################################
 # AFTER BUNDLE
 ########################################
 after_bundle do
-  puts "\nRails generation:".colorize(:light_green)
 
-  # Generators: Page controller
+  # Add JS modules
+  #   - Turbo-rails
+  #   - Tailwind CSS
+  #   - Github Octicons
   ########################################
-  puts "  - Homepage...".colorize(:light_blue)
+  puts "Adding JS modules...".colorize(:light_green)
+  run 'yarn add @hotwired/turbo-rails @primer/octicons tailwindcss@compat @tailwindcss/typography postcss-import-ext-glob @fullhuman/postcss-purgecss'
+  run 'yarn remove @rails/ujs'
+
+  # Tailwind CSS specifics
+  ########################################
+  run 'npx tailwindcss init --full'
+  gsub_file('tailwind.config.js', "  purge: [],\n", "")
+
+  before = "  plugins: []"
+  after  = Values::TAILWIND_PLUGIN
+  gsub_file('tailwind.config.js', before, after)
+
+  # Generators: Page controller + route
+  ########################################
+  puts "Generating Home Page...".colorize(:light_green)
   generate(:controller, 'pages', 'home', '--skip-routes', '--no-stylesheets', '--no-test-framework')
   route "root to: 'pages#home'"
 
   # Devise install + user
   ########################################
-  puts "  - Devise Authentication...".colorize(:light_blue)
-  generate('devise:install')
-  puts "    • User model..."
-  generate('devise', 'User')
-  puts "    • Devise Views..."
-  generate('devise:views')
+  puts "\nGem installation:".colorize(:light_green)
+  # puts "  - Devise Authentication...".colorize(:light_blue)
+  # generate('devise:install')
+  # puts "    • User model..."
+  # generate('devise', 'User')
+  # puts "    • Devise Views..."
+  # generate('devise:views')
 
   # Pundit install
   ########################################
-  puts "  - Pundit Authorization...".colorize(:light_blue)
-  generate('pundit:install')
+  # puts "  - Pundit Authorization...".colorize(:light_blue)
+  # generate('pundit:install')
 
-  puts "  - Model Annotation...".colorize(:light_blue)
-  generate('annotate:install')
+  # puts "  - Model Annotation...".colorize(:light_blue)
+  # generate('annotate:install')
 
   # ActiveStorage install + cloudinary
   ########################################
   puts "  - ActiveStorage database...".colorize(:light_blue)
   rails_command('active_storage:install')
-
-  append_file 'config/storage.yml', <<~YAML
-    cloudinary:
-      service: Cloudinary
-  YAML
-
-  # Apply Migrations
-  ########################################
-  puts "\nDatabase migration...".colorize(:light_green)
-  rails_command 'db:drop db:create db:migrate'
-
-  # App controller
-  ########################################
-  puts "Changing ApplicationController to use Devise and Pundit...".colorize(:light_green)
-  inject_into_file 'app/controllers/application_controller.rb', before: 'end' do
-    <<-RUBY
-  include Pundit
-  before_action :authenticate_user!
-
-  # Pundit: white-list approach.
-  after_action :verify_authorized, except: :index, unless: :skip_pundit?
-  after_action :verify_policy_scoped, only: :index, unless: :skip_pundit?
-
-  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
-  def user_not_authorized
-    flash[:alert] = "You are not authorized to perform this action."
-    redirect_to(root_path)
-  end
-
-  private
-
-  def skip_pundit?
-    devise_controller? || params[:controller] =~ /(^(rails_)?admin)|(^pages$)/
-  end
-    RUBY
-  end
-
-  # Pages Controller
-  ########################################
-  run 'rm app/controllers/pages_controller.rb'
-  file 'app/controllers/pages_controller.rb', <<~RUBY
-    class PagesController < ApplicationController
-      skip_before_action :authenticate_user!, only: [ :home ]
-
-      def home
-      end
-    end
-  RUBY
-
-  # Git ignore
-  ########################################
-  append_file '.gitignore', <<~TXT
-
-    # Ignore .env file containing credentials.
-    .env*
-  TXT
-
-  # Environments
-  ########################################
-  environment 'config.action_mailer.default_url_options = { host: "http://localhost:3000" }', env: 'development'
-  environment 'config.action_mailer.default_url_options = { host: "http://TODO_PUT_YOUR_DOMAIN_HERE" }', env: 'production'
+  append_file('config/storage.yml', Values::CLOUDINARY)
 
   before = 'config.active_storage.service = :local'
-  after = 'config.active_storage.service = :cloudinary'
+  after  = 'config.active_storage.service = :cloudinary'
   gsub_file("config/environments/development.rb", before, after)
   gsub_file("config/environments/production.rb", before, after)
 
-  # Webpacker / Yarn
+  # Viewcomponent Helpers
   ########################################
-  append_file 'app/javascript/packs/application.js', <<~JS
+  puts "  - ViewComponents...".colorize(:light_blue)
+  run('cp -R ~/.dotfiles/templates/rails/standard/lib/rails lib/')
+  replace_file_with_values('app/helpers/view_component_helper.rb')
 
-    const images = require.context('../images', true)
-    const imagePath = (name) => images(name, true)
+  # Migrations
+  ########################################
+  puts "Database migration...".colorize(:light_green)
+  rails_command 'db:drop db:create db:migrate'
 
-    // External imports
+  # Application Controllers
+  ########################################
+  puts "Changing Controllers to use Devise and Pundit...".colorize(:light_green)
+  replace_file_with_values('app/controllers/application_controller.rb')
+  replace_file_with_values('app/controllers/pages_controller.rb')
 
-    // Internal imports
+  # Environments
+  ########################################
+  environment(
+    'config.action_mailer.default_url_options = { host: "http://localhost:3000" }',
+    { env: 'development' })
+  environment(
+    'config.action_mailer.default_url_options = { host: "http://TODO_PUT_YOUR_DOMAIN_HERE" }',
+    { env: 'production' })
 
-    document.addEventListener('turbolinks:load', () => {
+  # Webpacker replacing Sprockets
+  ########################################
 
-    });
-  JS
+  File.rename("app/javascript", "app/frontend")
 
-  inject_into_file 'config/webpack/environment.js', before: 'module.exports' do
-    <<~JS
-      const webpack = require('webpack');
+  ["images", "stylesheets", "fonts"].each { |dir| empty_directory("app/frontend/#{dir}") }
 
-      // Preventing Babel from transpiling NodeModules packages
-      environment.loaders.delete('nodeModules');
+  replace_file_with_values("app/frontend/packs/application.js")
+  replace_file_with_values("app/frontend/packs/stylesheets.css")
+  replace_file_with_values('app/frontend/stylesheets/application.css')
+  replace_file_with_values('app/frontend/controllers/index.js')
+  replace_file_with_values('config/webpack/environment.js')
 
-    JS
-  end
 
-  run 'mv app/javascript app/frontend'
-  run 'mkdir app/frontend/{images,stylesheets,fonts}'
   gsub_file('config/Webpacker.yml', 'source_path: app/javascript', 'source_path: app/frontend')
+  gsub_file('config/Webpacker.yml', 'additional_paths: []', "additional_paths: ['app/components']")
   gsub_file('config/Webpacker.yml', 'extract_css: false', 'extract_css: true')
 
-  run 'yarn autoclean --init'
+  remove_file('postcss.config.js')
+  run "cp ~/.dotfiles/templates/rails/standard/postcss.config.js ./"
 
-  # Tailwind CSS
+  # Components
   ########################################
-  run 'yarn add tailwindcss@compat'
-  run 'npx tailwindcss init'
+  run "cp -R ~/.dotfiles/templates/rails/standard/app/components app/"
+  run "cp -R ~/.dotfiles/templates/rails/standard/app/views/shared app/views"
 
-  gsub_file('tailwind.config.js', "  purge: [],", <<-JS.chomp +
-  purge: {
-    content: ["./app/**/*.html.erb"],
-  }
-  JS
-  ',')
-
-  inject_into_file 'postcss.config.js', after: 'plugins: [' do
-<<-JS.chomp +
-
-    require("tailwindcss")
-JS
-','
-  end
-
-  file 'app/frontend/packs/stylesheets.css', <<~CSS
-    /* Tailwind CSS */
-    @import "tailwindcss/base";
-    @import "tailwindcss/components";
-    @import "tailwindcss/utilities";
-
-    /* Custom CSS */
-    @import "../stylesheets/application"
-  CSS
-
-  run 'touch app/frontend/stylesheets/application.css'
 
   # Dotenv
   ########################################
-  run 'touch .env'
+  create_file('.env')
+
+  # Assets from Sprockets to Webpacker
+  ########################################
+  puts "Removing Assets and Vendor folders...".colorize(:light_green)
+  remove_dir('app/assets')
+  remove_dir('vendor')
 
   # Git
   ########################################
+  append_file('.gitignore', Values::GIT_IGNORE)
   git add: '.'
   git commit: "-m 'Initial commit with standard template'"
 end

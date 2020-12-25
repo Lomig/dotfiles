@@ -4,10 +4,11 @@ require 'colorize'
 
 #--------------------------------
 options = {
-  database:       :postgresql,
-  skip_sprockets: true,
-  skip_test:      false,
-  webpack:        :stimulus,
+  database:        :postgresql,
+  skip_sprockets:  true,
+  skip_test:       false,
+  skip_turbolinks: true,
+  webpack:         :stimulus,
 }
 
 template = "~/.dotfiles/templates/rails/standard.rb"

@@ -1,0 +1,11 @@
+/* Tailwind CSS */
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* Library CSS */
+@import "@primer/octicons/build/build";
+
+/* Custom CSS */
+@import-glob "../../components/**/component.css";
+@import "../stylesheets/application";
